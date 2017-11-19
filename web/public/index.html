@@ -48,6 +48,7 @@
     </div>
   </div>
 </form>
+<div id="text"></div>
 <script src="/socket.io/socket.io.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
 <script>
@@ -56,14 +57,20 @@ function search(){
   $("#loading").show();
   $("svg").hide();
   socket.emit("fetch", document.getElementById("key").value, document.getElementById("lvls").value)
+  socket.emit("getData", document.getElementById("key").value)
 
 }
 socket.on("data-ready", function() {
   $("#loading").hide();
+  $("#text").hide();
   $("svg").show();
   $.getJSON("./flare.json", function(json) {
       getData(json)
   });
+})
+socket.on("tweets", function(tweets) {
+  console.log(tweets);
+  $("#text").html(tweets);
 })
 var margin = {top: 20, right: 120, bottom: 20, left: 120},
     width = 960 - margin.right - margin.left,
