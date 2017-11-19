@@ -1,48 +1,69 @@
 <!DOCTYPE html>
-<meta charset="utf-8">
-<style>
+<html lang="en">
+<head>
 
-.node {
-  cursor: pointer;
-}
+  <meta charset="utf-8">
+  <title>Graf Your Connections</title>
+  <meta name="description" content="Graf Your Connections">
+  <meta name="author" content="Graftim Team">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-.node circle {
-  fill: #fff;
-  stroke: steelblue;
-  stroke-width: 1.5px;
-}
+  <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
 
-.node text {
-  font: 10px sans-serif;
-}
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/skeleton.css">
+  <link rel="icon" type="image/png" href="images/favicon.png">
 
-.link {
-  fill: none;
-  stroke: #ccc;
-  stroke-width: 1.5px;
-}
+  <style>
+  .node {
+    cursor: pointer;
+  }
+  .node circle {
+    fill: #fff;
+    stroke: steelblue;
+    stroke-width: 1.5px;
+  }
+  .node text {
+    font: 10px sans-serif;
+  }
+  .link {
+    fill: none;
+    stroke: #ccc;
+    stroke-width: 1.5px;
+  }
+  </style>
 
-</style>
+</head>
 <body>
-<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="js/d3.v3.min.js"></script>
 <form action="javascript:search()">
-  <input type="text" id="key" placeholder="User to fetch.." style="margin: 10px; width: 40%; border: 1px solid #4b4949;">
-  <input type="text" id="lvls" placeholder="Numbers of levels (recommended 2)" style="margin: 10px; width: 40%; border: 1px solid #4b4949;">
-  <input type="submit" class="btn" value="Search">
+  <div class="row">
+    <div class="ten columns">
+      <input type="text" id="key" placeholder="User to fetch.." style="margin: 10px; width: 40%; border: 1px solid #4b4949;">
+      <input type="text" id="lvls" placeholder="Numbers of levels (recommended 2)" style="margin: 10px; width: 40%; border: 1px solid #4b4949;">
+      <input type="submit" class="btn" value="Search">
+    </div>
+    <div class="two columns">
+      <img id ="loading" width="80px" height="60px" src="images/loading.gif" alt="Loading" style="display:none"/>
+    </div>
+  </div>
 </form>
-<h1 id ="loading"></h1>
 <script src="/socket.io/socket.io.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
 <script>
 var socket = io()
 function search(){
-  console.log("searching")
-  document.getElementById("loading").innerHTML = "Loading"
+  $("#loading").show();
+  $("svg").hide();
   socket.emit("fetch", document.getElementById("key").value, document.getElementById("lvls").value)
 
 }
-socket.on("data-ready", function(){
-  location.reload()
+socket.on("data-ready", function() {
+  $("#loading").hide();
+  $("svg").show();
+  $.getJSON("./flare.json", function(json) {
+      getData(json)
+  });
 })
 var margin = {top: 20, right: 120, bottom: 20, left: 120},
     width = 960 - margin.right - margin.left,

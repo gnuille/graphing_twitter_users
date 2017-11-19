@@ -54,5 +54,5 @@ tots = [sys.argv[1]]
 nivells =int(sys.argv[2])
 complete(data, nivells, tots)
 
-with open('./views/flare.json', 'w') as fp:
+with open('public/flare.json', 'w') as fp:
     json.dump(data, fp)

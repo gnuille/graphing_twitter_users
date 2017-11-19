@@ -1,0 +1,4 @@
+applications:
+- name: graftim
+  random-route: true
+  memory: 256Mmanifest.hml

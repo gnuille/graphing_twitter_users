@@ -16,7 +16,7 @@ app.use(bodyParser.urlencoded({
 // parse application/json
 app.use(bodyParser.json())
 
-app.use(express.static(__dirname + '/views'));
+app.use(express.static('public'))
 io.on("connection", function(socket) {
   socket.on("fetch", function(user, lvls) {
     console.log("user: %s nlevels: %s",user,lvls)
