@@ -40,7 +40,7 @@ io.on("connection", function(socket) {
     T.get('search/tweets', { q: user, count: 10 }, function(err, data, response) {
       var tweets = '';
       for (var i=0; i<data.statuses.length; ++i) {
-        tweets += '<a class="button button-primary" href="#">'+data.statuses[i].user.screen_name+'</a><br/>'+data.statuses[i].text+'<hr/>'
+        tweets += '<a class="button button-primary" href="https://twitter.com/'+user+'">'+data.statuses[i].user.screen_name+'</a><br/>'+data.statuses[i].text+'<hr/>'
         if (i == data.statuses.length-1) socket.emit("tweets", tweets);
       }
     })

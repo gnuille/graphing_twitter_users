@@ -71,7 +71,7 @@ socket.on("data-ready", function() {
   });
 })
 socket.on("tweets", function(tweets) {
-  console.log(tweets);
+  $("#text").show();
   $("#text").html(tweets);
 })
 var margin = {top: 20, right: 120, bottom: 20, left: 120},
