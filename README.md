@@ -4,8 +4,9 @@ Graphing relations between users in twitter via replys of tl tweets.
 
 ## Usage
 
-1. On the command line type `npm start`
-2. Open browser on localhost:3000 and enjoy app
+1. On the command line type `npm install`
+2. On the command line type `npm start`
+3. Open browser on localhost:3000 and enjoy app
 
 ## Contributing
 
